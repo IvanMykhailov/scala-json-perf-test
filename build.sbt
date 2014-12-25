@@ -1,6 +1,6 @@
-name := "mall-locator-sensor"
+name := "json-test"
 
-organization := "me.singularex"
+organization := "me.imykhailov"
 
 version := "0.1-SNAPSHOT"
 
@@ -10,7 +10,7 @@ libraryDependencies ++= Seq(
 //  "com.ning" % "async-http-client" % "1.8.3",
   "com.typesafe" % "config" % "1.2.0",
   "org.slf4j" % "slf4j-api" % "1.7.5",
-  "ch.qos.logback" % "logback-classic" % "1.1.2",
+  "ch.qos.logback" % "logback-classic" % "1.1.2"
 //  "com.typesafe.akka" %% "akka-actor" % "2.2.1"
 )
 
@@ -24,7 +24,7 @@ libraryDependencies ++= Seq(
 
 //Tests
 libraryDependencies ++= Seq(
-  "org.scalatest" %% "scalatest" % "2.0" % "test",
+  "org.scalatest" %% "scalatest" % "2.0" % "test"
 //  "com.typesafe.akka" %% "akka-testkit" % "2.2.0" % "test"
 )
 
