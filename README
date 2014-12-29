@@ -9,9 +9,8 @@ Hardware:
 1 core of i7 2.9Ghz, memory is not limited
 
 Results:
-+-------------+---------------+-------+--------+-------+--------------+-------------+
 |        Group|           Test|  Dummy|PlayJson|jackson|json4s/jackson|json4s/native|
-+-------------+---------------+-------+--------+-------+--------------+-------------+
+|-------------|---------------|-------|--------|-------|--------------|-------------|
 |1. obj-to-AST|complex objects|53655.9|    46.0|  194.0|          65.6|         69.7|
 |1. obj-to-AST|           maps|31753.9|   156.1|  433.4|         146.8|        151.0|
 |1. obj-to-AST|  plain objects|50333.2|   352.2| 1146.8|         601.2|        694.0|
@@ -24,7 +23,7 @@ Results:
 |       3. AST|      to string|73392.4|   184.0|62673.6|         188.8|         36.5|
 |4. full cycle|     direct str|43760.6|    14.0|   39.0|          16.9|         15.2|
 |4. full cycle|    through AST|23735.8|    14.2|   38.5|          16.6|         11.7|
-+-------------+---------------+-------+--------+-------+--------------+-------------+
+
 
 Comments:
 * AST - abstract syntax tree, JsValue for PlayJson, JValue for json4s
