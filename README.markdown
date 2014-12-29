@@ -1,14 +1,17 @@
-Testing different json libraries for scala:
+==Testing different json libraries for scala:==
+
 1. Dummy - do nothing, just show test suite overhead
 2. PlayJson
 3. json4s with native AST-string parsing
 4. json4s with jackson AST-string parsing
 5. jackson witn jackson-module-scala and mesosphere/jackson-case-class-module
 
-Hardware:
+==Hardware:==
+
 1 core of i7 2.9Ghz, memory is not limited
 
-Results:
+==Results:==
+
 |        Group|           Test|  Dummy|PlayJson|jackson|json4s/jackson|json4s/native|
 |-------------|---------------|-------|--------|-------|--------------|-------------|
 |1. obj-to-AST|complex objects|53655.9|    46.0|  194.0|          65.6|         69.7|
@@ -25,7 +28,8 @@ Results:
 |4. full cycle|    through AST|23735.8|    14.2|   38.5|          16.6|         11.7|
 
 
-Comments:
+==Comments:==
+
 * AST - abstract syntax tree, JsValue for PlayJson, JValue for json4s
 * Jackson can't create AST, so it work with string directly. Thats why "AST:parse string" and "AST:to string" is so huge, sinse they really do nothing
 * full cycle:direct str means converting of ComplexEntity to string and then parse it back. Flow is ComplexEntity->string->ComplexEntity
