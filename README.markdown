@@ -12,6 +12,8 @@
 
 ## Results:
 
+Millions of requests per second
+
 |        Group|           Test|  Dummy|PlayJson|jackson|json4s/jackson|json4s/native|
 |-------------|---------------|-------|--------|-------|--------------|-------------|
 |1. obj-to-AST|complex objects|53655.9|    46.0|  194.0|          65.6|         69.7|
