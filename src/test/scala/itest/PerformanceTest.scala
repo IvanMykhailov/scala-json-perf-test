@@ -1,8 +1,9 @@
 package itest
 
-import imykhailov.perftest.converters.{DummyConverters, PlayJsonConverters, Converters}
+import imykhailov.perftest.converters._
 import imykhailov.utils.Tabulator
 import itest.model.{TaskRez, TestTask}
+import org.json4s.JsonAST.JValue
 import org.scalatest.{Matchers, FlatSpec}
 import play.api.libs.json.JsValue
 
@@ -10,8 +11,11 @@ import play.api.libs.json.JsValue
 class PerformanceTest extends FlatSpec with Matchers {
 
   val testLibraries = Seq(
-    new TestedLib[JsValue] {def name = "PlayJson"; def converters = PlayJsonConverters},
-    new TestedLib[AnyRef]  {def name = "Dummy";    def converters = DummyConverters}
+    new TestedLib[JsValue] {def name = "PlayJson";       def converters = PlayJsonConverters},
+    new TestedLib[JValue]  {def name = "json4s/native";  def converters = Json4sNativeConverters},
+    new TestedLib[JValue]  {def name = "json4s/jackson"; def converters = Json4sJacksonConverters},
+    new TestedLib[String]  {def name = "jackson";        def converters = JacksonConverters},
+    new TestedLib[AnyRef]  {def name = "Dummy";          def converters = DummyConverters}
   )
 
 
@@ -27,7 +31,7 @@ class PerformanceTest extends FlatSpec with Matchers {
       task <- lib.testTasks
     } yield {
       val fullName = task.group  + ":" + task.name + ":" + lib.name
-      val rezOps: Long = performance(fullName, 5, 100000) {
+      val rezOps: Long = performance(fullName, 5, 50000) {
         task.task()
       }
       TaskRez(task.group, task.name, lib.name, rezOps)
@@ -43,18 +47,17 @@ class PerformanceTest extends FlatSpec with Matchers {
       .map { row =>
         val group = row(0).group
         val name  = row(0).name
-        Seq(group, name) ++ row.sortBy(_.libName).map(_.ops.toString)
+        Seq(group, name) ++ row.sortBy(_.libName).map(rez => formatOps(rez.ops))
       }
 
     val toPrint = Seq(header) ++ dataToPrint
     println(Tabulator.format(toPrint))
   }
 
-  def printResult(jsonLibName: String, rez: Seq[(String, Long)]) = {
-    val data = Seq(Seq("Test", "op/s")) ++ rez.map(t => Seq(t._1, t._2.toString))
-    println(Tabulator.format(data))
-  }
 
+  def formatOps(ops: Long): String = {
+    "%.1f".format(ops.toDouble / 1000)
+  }
 
   private def performance(name: String, series: Int, times: Long)(block: => Unit) = {
     val perfs = (for (s <- 1 to series) yield {

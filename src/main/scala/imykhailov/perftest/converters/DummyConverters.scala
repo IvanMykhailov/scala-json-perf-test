@@ -20,5 +20,14 @@ object DummyConverters extends Converters[AnyRef] {
 
   override def stringToTree(str: String): AnyRef = str
 
-  override def treeToString(tree: AnyRef): String = tree.toString()
+  override def treeToString(tree: AnyRef): String = "undefined"
+
+  var storedObj: Option[ComplexEntity] = None
+
+  override def complexEntityToStr(o: ComplexEntity): String = {
+    storedObj = Some(o)
+    "undefined"
+  }
+
+  override def strToComplexEntity(str: String): ComplexEntity = storedObj.get
 }

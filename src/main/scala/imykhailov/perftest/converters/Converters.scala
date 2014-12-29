@@ -23,4 +23,9 @@ trait Converters[JsTree <: AnyRef] {
   def stringToTree(str: String): JsTree
 
   def treeToString(tree: JsTree): String
+
+
+  def complexEntityToStr(o: ComplexEntity): String = treeToString(complexEntityRW.write(o))
+
+  def strToComplexEntity(str: String): ComplexEntity = complexEntityRW.read(stringToTree(str))
 }

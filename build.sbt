@@ -4,6 +4,8 @@ organization := "me.imykhailov"
 
 version := "0.1-SNAPSHOT"
 
+resolvers += "Mesosphere Public Repository" at "http://downloads.mesosphere.io/maven"
+
 libraryDependencies ++= Seq(
   "org.scalaj" % "scalaj-time_2.10.2" % "0.7",
   "com.typesafe.play" %% "play-json" % "2.3.1",
@@ -13,7 +15,9 @@ libraryDependencies ++= Seq(
   "org.json4s" %% "json4s" % "3.2.11",
   "org.json4s" %% "json4s-native" % "3.2.11",
   "org.json4s" %% "json4s-jackson" % "3.2.11",
-  "org.json4s" %% "json4s-tests" % "3.2.11"
+  "org.json4s" %% "json4s-tests" % "3.2.11",
+  "com.fasterxml.jackson.module" %% "jackson-module-scala" % "2.4.4",
+  "mesosphere" %% "jackson-case-class-module" % "0.1.2"
 )
 
 //Tests
@@ -34,7 +38,5 @@ scalacOptions ++= Seq(
   , "-language:postfixOps"
   , "-language:implicitConversions"
 )
-
-seq(com.github.retronym.SbtOneJar.oneJarSettings: _*)
 
 net.virtualvoid.sbt.graph.Plugin.graphSettings

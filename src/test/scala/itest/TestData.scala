@@ -46,7 +46,15 @@ class TestData[JsTree <: AnyRef](conv: Converters[JsTree]) extends Matchers {
     conv.plainEntityRW.read(plainEntityJs) shouldBe plainEntity
     conv.complexEntityRW.read(complexEntityJs) shouldBe complexEntity
 
-    //conv.complexEntityRW.read(conv.stringToTree(complexEntityString)) shouldBe complexEntity
+    if (complexEntityString != "undefined") {
+      conv.complexEntityRW.read(conv.stringToTree(complexEntityString)) shouldBe complexEntity
+    }
+
+    val str = conv.complexEntityToStr(complexEntity)
+    if (str != "undefined") {
+      conv.strToComplexEntity(str) shouldBe complexEntity
+    }
+
   }
 
 }
